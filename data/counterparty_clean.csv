@@ -1,0 +1,13 @@
+"year","counterparty","Sum(cases)","Sum(bed_days)"
+"2011","Car, pick-up truck or van",13826,66954
+"2011","Fixed or stationary object",4865,27352
+"2011","Non-collision transport accident",8468,30493
+"2011","Other",6394,27211
+"2012","Car, pick-up truck or van",13567,64423
+"2012","Fixed or stationary object",4819,25533
+"2012","Non-collision transport accident",8640,32399
+"2012","Other",6443,26663
+"2013","Car, pick-up truck or van",13104,55745
+"2013","Fixed or stationary object",4592,23287
+"2013","Non-collision transport accident",8547,29701
+"2013","Other",6165,23927
