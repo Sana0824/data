@@ -1,0 +1,68 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f4f6f8;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+#dashboard {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+#map svg {
+    border: 1px solid #ccc;
+    background: #ffffff;
+}
+
+path {
+    cursor: pointer;
+}
+
+path:hover {
+    opacity: 0.75;
+    stroke-width: 2;
+}
+
+#details {
+    width: 360px;
+    padding: 18px;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.stat-card {
+    background: #f7f9fc;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-left: 5px solid #3b82f6;
+}
+
+.stat-card h3 {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+}
+
+.stat-card p {
+    margin: 5px 0 0;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+#tooltip {
+    position: absolute;
+    background: white;
+    padding: 10px;
+    border: 1px solid #999;
+    border-radius: 6px;
+    pointer-events: none;
+    opacity: 0;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
