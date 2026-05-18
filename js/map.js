@@ -5,43 +5,56 @@ Promise.all([
     d3.csv("data/road_user_clean.csv"),
     d3.csv("data/sex_clean.csv"),
     d3.csv("data/counterparty_clean.csv")
-]).then(([geoData, stateData, ageData, roadUserData, sexData, counterpartyData]) => {
+]).then(function(files) {
 
-    stateData.forEach(d => {
+    const geoData = files[0];
+    const stateData = files[1];
+    const ageData = files[2];
+    const roadUserData = files[3];
+    const sexData = files[4];
+    const counterpartyData = files[5];
+
+    // convert strings into numbers
+    stateData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
         d.bed_days = +d["Sum(bed_days)"];
     });
 
-    ageData.forEach(d => {
+    ageData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
         d.bed_days = +d["Sum(bed_days)"];
     });
 
-    roadUserData.forEach(d => {
+    roadUserData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
         d.bed_days = +d["Sum(bed_days)"];
     });
 
-    sexData.forEach(d => {
+    sexData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
         d.bed_days = +d["Sum(bed_days)"];
     });
 
-    counterpartyData.forEach(d => {
+    counterpartyData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
         d.bed_days = +d["Sum(bed_days)"];
     });
 
     const latestYear = 2016;
-    const filteredStateData = stateData.filter(d => d.year === latestYear);
 
+    const filteredStateData = stateData.filter(function(d) {
+        return d.year === latestYear;
+    });
+
+    // make object for quick access
     const dataByState = {};
-    filteredStateData.forEach(d => {
+
+    filteredStateData.forEach(function(d) {
         dataByState[d.state] = d;
     });
 
@@ -55,65 +68,90 @@ Promise.all([
 
     const tooltip = d3.select("#tooltip");
 
+    // map projection
     const projection = d3.geoMercator()
         .center([134, -28])
         .scale(700)
         .translate([width / 2, height / 2]);
 
-    const path = d3.geoPath().projection(projection);
+    const path = d3.geoPath()
+        .projection(projection);
+
+    // colour scale
+    const maxCases = d3.max(filteredStateData, function(d) {
+        return d.cases;
+    });
 
     const color = d3.scaleSequential()
-        .domain([0, d3.max(filteredStateData, d => d.cases)])
-        .interpolator(d3.interpolateBlues);
+        .domain([maxCases, 0])
+        .interpolator(d3.interpolateRdYlGn);
 
+    // draw states
     svg.selectAll("path")
         .data(geoData.features)
         .enter()
         .append("path")
         .attr("d", path)
-        .attr("fill", d => {
+
+        .attr("fill", function(d) {
+
             const stateName = d.properties.STATE_NAME;
+
             const row = dataByState[stateName];
-            return row ? color(row.cases) : "#ccc";
+
+            if (row) {
+                return color(row.cases);
+            }
+            else {
+                return "#ccc";
+            }
         })
-        .attr("stroke", "#333")
+
+        .attr("stroke", "black")
         .attr("stroke-width", 1)
 
-        // hover tooltip
+        // tooltip
         .on("mouseover", function(event, d) {
+
             const stateName = d.properties.STATE_NAME;
+
             const row = dataByState[stateName];
 
             tooltip
                 .style("opacity", 1)
-                .html(`
-                    <strong>${stateName}</strong><br>
-                    Cases: ${row ? row.cases : "No data"}<br>
-                    Bed days: ${row ? row.bed_days : "No data"}
-                `);
+                .html(
+                    "<strong>" + stateName + "</strong><br>" +
+                    "Cases: " + row.cases + "<br>" +
+                    "Bed Days: " + row.bed_days
+                );
         })
+
         .on("mousemove", function(event) {
+
             tooltip
-                .style("left", event.pageX + 15 + "px")
-                .style("top", event.pageY - 20 + "px");
+                .style("left", (event.pageX + 10) + "px")
+                .style("top", (event.pageY - 20) + "px");
         })
+
         .on("mouseout", function() {
+
             tooltip.style("opacity", 0);
         })
 
-        // state click filtering
+        // click state
         .on("click", function(event, d) {
-            const stateName = d.properties.STATE_NAME;
 
             d3.selectAll("path")
-                .attr("stroke", "#333")
+                .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
             d3.select(this)
-                .attr("stroke", "red")
+                .attr("stroke", "blue")
                 .attr("stroke-width", 3);
 
-            showStateDetails(
+            const stateName = d.properties.STATE_NAME;
+
+            showDetails(
                 stateName,
                 stateData,
                 ageData,
@@ -123,74 +161,104 @@ Promise.all([
             );
         });
 
-}).catch(error => {
-    console.error("Error loading files:", error);
+}).catch(function(error) {
+
+    console.log("Error loading files");
+    console.log(error);
+
 });
 
 
-function showStateDetails(stateName, stateData, ageData, roadUserData, sexData, counterpartyData) {
+// function for right side panel
+function showDetails(
+    stateName,
+    stateData,
+    ageData,
+    roadUserData,
+    sexData,
+    counterpartyData
+) {
 
-    const stateRows = stateData.filter(d => d.state === stateName);
+    const rows = stateData.filter(function(d) {
+        return d.state === stateName;
+    });
 
-    const totalCases = d3.sum(stateRows, d => d.cases);
-    const totalBedDays = d3.sum(stateRows, d => d.bed_days);
+    const totalCases = d3.sum(rows, function(d) {
+        return d.cases;
+    });
 
-    const highestYear = stateRows.reduce((max, d) => d.cases > max.cases ? d : max, stateRows[0]);
+    const totalBedDays = d3.sum(rows, function(d) {
+        return d.bed_days;
+    });
 
-    const latestYear = 2016;
+    // highest year
+    let highestYear = rows[0];
 
-    const topAge = ageData
-        .filter(d => d.year === latestYear)
-        .sort((a, b) => b.cases - a.cases)[0];
+    rows.forEach(function(d) {
 
-    const topRoadUser = roadUserData
-        .filter(d => d.year === latestYear)
-        .sort((a, b) => b.cases - a.cases)[0];
+        if (d.cases > highestYear.cases) {
+            highestYear = d;
+        }
+    });
 
-    const topSex = sexData
-        .filter(d => d.year === latestYear)
-        .sort((a, b) => b.cases - a.cases)[0];
+    // top age group
+    const topAge = ageData.sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
 
-    const topCounterparty = counterpartyData
-        .filter(d => d.year === latestYear)
-        .sort((a, b) => b.cases - a.cases)[0];
+    // top road user
+    const topRoadUser = roadUserData.sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
 
-    d3.select("#details").html(`
-        <h2>${stateName}</h2>
+    // top sex
+    const topSex = sexData.sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
 
-        <div class="stat-card">
-            <h3>Total accident cases</h3>
-            <p>${totalCases}</p>
-        </div>
+    // top counterparty
+    const topCounterparty = counterpartyData.sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
 
-        <div class="stat-card">
-            <h3>Total hospital bed days</h3>
-            <p>${totalBedDays}</p>
-        </div>
+    d3.select("#details")
+        .html(
 
-        <div class="stat-card">
-            <h3>Highest accident year</h3>
-            <p>${highestYear ? highestYear.year : "N/A"}</p>
-        </div>
+            "<h2>" + stateName + "</h2>" +
 
-        <div class="stat-card">
-            <h3>Most affected age group</h3>
-            <p>${topAge ? topAge.age_group : "N/A"}</p>
-        </div>
+            "<div class='stat-card'>" +
+            "<h3>Total Accident Cases</h3>" +
+            "<p>" + totalCases + "</p>" +
+            "</div>" +
 
-        <div class="stat-card">
-            <h3>Highest road user category</h3>
-            <p>${topRoadUser ? topRoadUser.road_user : "N/A"}</p>
-        </div>
+            "<div class='stat-card'>" +
+            "<h3>Total Hospital Bed Days</h3>" +
+            "<p>" + totalBedDays + "</p>" +
+            "</div>" +
 
-        <div class="stat-card">
-            <h3>Highest sex category</h3>
-            <p>${topSex ? topSex.sex : "N/A"}</p>
-        </div>
+            "<div class='stat-card'>" +
+            "<h3>Highest Accident Year</h3>" +
+            "<p>" + highestYear.year + "</p>" +
+            "</div>" +
 
-        <div class="stat-card">
-            <h3>Main counterparty involved</h3>
-            <p>${topCounterparty ? topCounterparty.counterparty : "N/A"}</p>
-        </div>
-    `);
+            "<div class='stat-card'>" +
+            "<h3>Most Affected Age Group</h3>" +
+            "<p>" + topAge.age_group + "</p>" +
+            "</div>" +
+
+            "<div class='stat-card'>" +
+            "<h3>Highest Road User Type</h3>" +
+            "<p>" + topRoadUser.road_user + "</p>" +
+            "</div>" +
+
+            "<div class='stat-card'>" +
+            "<h3>Highest Gender Category</h3>" +
+            "<p>" + topSex.sex + "</p>" +
+            "</div>" +
+
+            "<div class='stat-card'>" +
+            "<h3>Main Counterparty</h3>" +
+            "<p>" + topCounterparty.counterparty + "</p>" +
+            "</div>"
+        );
 }
