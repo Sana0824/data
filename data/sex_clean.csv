@@ -1,17 +1,13 @@
-"year","road_user","Sum(cases)","Sum(bed_days)"
-"2011","Bus occupant",198,653
-"2011","Car driver, passenger or unknown position",16417,72072
-"2011","Heavy transport driver, passenger or unknown position",552,2484
-"2011","Motorcyclist",7502,37297
-"2011","Other or unknown",560,2438
-"2011","Pedal cyclist",5322,15033
-"2011","Pedestrian",2705,20501
-"2011","Pick-up truck or van occupant",220,1124
-"2012","Bus occupant",85,331
-"2012","Car driver, passenger or unknown position",8203,35006
-"2012","Heavy transport driver, passenger or unknown position",238,1135
-"2012","Motorcyclist",3737,17917
-"2012","Other or unknown",244,1215
-"2012","Pedal cyclist",2816,7285
-"2012","Pedestrian",1292,8855
-"2012","Pick-up truck or van occupant",111,665
+"year","sex","Sum(cases)","Sum(bed_days)"
+"2011","Female",11501,48342
+"2011","Male",22052,103668
+"2012","Female",11364,48979
+"2012","Male",22105,100039
+"2013","Female",11804,44546
+"2013","Male",22620,98440
+"2014","Female",12006,45347
+"2014","Male",22853,94381
+"2015","Female",12827,60820
+"2015","Male",23478,117264
+"2016","Female",6826,34232
+"2016","Male",12272,71062

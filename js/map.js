@@ -14,7 +14,6 @@ Promise.all([
     const sexData = files[4];
     const counterpartyData = files[5];
 
-    // convert strings into numbers
     stateData.forEach(function(d) {
         d.year = +d.year;
         d.cases = +d["Sum(cases)"];
@@ -138,7 +137,7 @@ Promise.all([
             tooltip.style("opacity", 0);
         })
 
-        // click state
+        
         .on("click", function(event, d) {
 
             d3.selectAll("path")
@@ -169,7 +168,7 @@ Promise.all([
 });
 
 
-// function for right side panel
+
 function showDetails(
     stateName,
     stateData,
@@ -191,7 +190,7 @@ function showDetails(
         return d.bed_days;
     });
 
-    // highest year
+   
     let highestYear = rows[0];
 
     rows.forEach(function(d) {
@@ -201,22 +200,22 @@ function showDetails(
         }
     });
 
-    // top age group
+   
     const topAge = ageData.sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    // top road user
+    
     const topRoadUser = roadUserData.sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    // top sex
+   
     const topSex = sexData.sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    // top counterparty
+    
     const topCounterparty = counterpartyData.sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
