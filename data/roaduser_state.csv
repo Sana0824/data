@@ -1,0 +1,527 @@
+"year","state","road_user_group","Sum(cases)","Sum(bed_days)"
+"2011","ACT","Driver",198,923
+"2011","ACT","Driver/passenger",0,0
+"2011","ACT","Motorcyclist",144,649
+"2011","ACT","Other/unknown",0,0
+"2011","ACT","Pedal cyclist",149,429
+"2011","ACT","Pedestrian",30,459
+"2011","NSW","Driver",5285,23686
+"2011","NSW","Driver/passenger",161,736
+"2011","NSW","Motorcyclist",2393,11863
+"2011","NSW","Other/unknown",325,1497
+"2011","NSW","Pedal cyclist",1487,4222
+"2011","NSW","Pedestrian",967,8340
+"2011","NT","Driver",209,1515
+"2011","NT","Motorcyclist",106,708
+"2011","NT","Other/unknown",31,124
+"2011","NT","Pedal cyclist",62,189
+"2011","NT","Pedestrian",44,453
+"2011","Qld","Driver",2768,12970
+"2011","Qld","Driver/passenger",162,776
+"2011","Qld","Motorcyclist",1781,8354
+"2011","Qld","Other/unknown",213,909
+"2011","Qld","Pedal cyclist",955,2841
+"2011","Qld","Pedestrian",443,2683
+"2011","SA","Driver",1255,5975
+"2011","SA","Driver/passenger",28,85
+"2011","SA","Motorcyclist",460,2798
+"2011","SA","Other/unknown",25,107
+"2011","SA","Pedal cyclist",379,1319
+"2011","SA","Pedestrian",176,1632
+"2011","Tas","Driver",225,1575
+"2011","Tas","Driver/passenger",0,0
+"2011","Tas","Motorcyclist",129,855
+"2011","Tas","Other/unknown",0,0
+"2011","Tas","Pedal cyclist",73,174
+"2011","Tas","Pedestrian",45,347
+"2011","Vic","Driver",4861,17151
+"2011","Vic","Driver/passenger",156,632
+"2011","Vic","Motorcyclist",1622,6525
+"2011","Vic","Other/unknown",261,765
+"2011","Vic","Pedal cyclist",1687,4174
+"2011","Vic","Pedestrian",739,4677
+"2011","WA","Driver",1616,8277
+"2011","WA","Driver/passenger",45,255
+"2011","WA","Motorcyclist",867,5545
+"2011","WA","Other/unknown",123,813
+"2011","WA","Pedal cyclist",530,1685
+"2011","WA","Pedestrian",261,1910
+"2012","ACT","Driver",237,991
+"2012","ACT","Driver/passenger",0,0
+"2012","ACT","Motorcyclist",144,523
+"2012","ACT","Other/unknown",11,22
+"2012","ACT","Pedal cyclist",173,527
+"2012","ACT","Pedestrian",27,162
+"2012","NSW","Driver",5423,22444
+"2012","NSW","Driver/passenger",142,681
+"2012","NSW","Motorcyclist",2626,12860
+"2012","NSW","Other/unknown",308,1557
+"2012","NSW","Pedal cyclist",1667,4631
+"2012","NSW","Pedestrian",955,7785
+"2012","NT","Driver",247,1358
+"2012","NT","Driver/passenger",7,18
+"2012","NT","Motorcyclist",118,660
+"2012","NT","Other/unknown",13,89
+"2012","NT","Pedal cyclist",45,184
+"2012","NT","Pedestrian",51,579
+"2012","Qld","Driver",3199,14240
+"2012","Qld","Driver/passenger",146,662
+"2012","Qld","Motorcyclist",1776,8547
+"2012","Qld","Other/unknown",222,1062
+"2012","Qld","Pedal cyclist",1054,3053
+"2012","Qld","Pedestrian",416,2850
+"2012","SA","Driver",1133,6579
+"2012","SA","Driver/passenger",31,90
+"2012","SA","Motorcyclist",451,2479
+"2012","SA","Other/unknown",79,215
+"2012","SA","Pedal cyclist",401,1471
+"2012","SA","Pedestrian",196,1515
+"2012","Tas","Driver",245,1520
+"2012","Tas","Driver/passenger",0,0
+"2012","Tas","Motorcyclist",124,618
+"2012","Tas","Other/unknown",7,10
+"2012","Tas","Pedal cyclist",91,200
+"2012","Tas","Pedestrian",51,434
+"2012","Vic","Driver",4062,14857
+"2012","Vic","Driver/passenger",116,529
+"2012","Vic","Motorcyclist",1505,6109
+"2012","Vic","Other/unknown",210,1040
+"2012","Vic","Pedal cyclist",1530,3865
+"2012","Vic","Pedestrian",675,3845
+"2012","WA","Driver",1568,8384
+"2012","WA","Driver/passenger",50,334
+"2012","WA","Motorcyclist",909,5388
+"2012","WA","Other/unknown",137,575
+"2012","WA","Pedal cyclist",587,1569
+"2012","WA","Pedestrian",242,1649
+"2013","ACT","Driver",212,945
+"2013","ACT","Driver/passenger",0,0
+"2013","ACT","Motorcyclist",137,611
+"2013","ACT","Other/unknown",5,42
+"2013","ACT","Pedal cyclist",174,475
+"2013","ACT","Pedestrian",33,357
+"2013","NSW","Driver",5585,20913
+"2013","NSW","Driver/passenger",127,563
+"2013","NSW","Motorcyclist",2570,12130
+"2013","NSW","Other/unknown",311,1653
+"2013","NSW","Pedal cyclist",1835,4961
+"2013","NSW","Pedestrian",993,6819
+"2013","NT","Driver",296,1820
+"2013","NT","Driver/passenger",0,0
+"2013","NT","Motorcyclist",121,952
+"2013","NT","Other/unknown",6,59
+"2013","NT","Pedal cyclist",70,251
+"2013","NT","Pedestrian",42,432
+"2013","Qld","Driver",3658,12494
+"2013","Qld","Driver/passenger",165,719
+"2013","Qld","Motorcyclist",2047,8925
+"2013","Qld","Other/unknown",230,918
+"2013","Qld","Pedal cyclist",1321,3517
+"2013","Qld","Pedestrian",400,2446
+"2013","SA","Driver",1106,5513
+"2013","SA","Driver/passenger",25,202
+"2013","SA","Motorcyclist",455,2718
+"2013","SA","Other/unknown",63,229
+"2013","SA","Pedal cyclist",400,1412
+"2013","SA","Pedestrian",172,1497
+"2013","Tas","Driver",265,1348
+"2013","Tas","Driver/passenger",0,0
+"2013","Tas","Motorcyclist",149,628
+"2013","Tas","Other/unknown",9,81
+"2013","Tas","Pedal cyclist",94,298
+"2013","Tas","Pedestrian",43,483
+"2013","Vic","Driver",3689,13552
+"2013","Vic","Driver/passenger",103,558
+"2013","Vic","Motorcyclist",1521,5998
+"2013","Vic","Other/unknown",215,943
+"2013","Vic","Pedal cyclist",1583,3944
+"2013","Vic","Pedestrian",673,4071
+"2013","WA","Driver",1452,7082
+"2013","WA","Driver/passenger",40,342
+"2013","WA","Motorcyclist",958,5298
+"2013","WA","Other/unknown",105,605
+"2013","WA","Pedal cyclist",675,2203
+"2013","WA","Pedestrian",245,1696
+"2014","ACT","Driver",232,943
+"2014","ACT","Driver/passenger",0,0
+"2014","ACT","Motorcyclist",102,523
+"2014","ACT","Other/unknown",0,0
+"2014","ACT","Pedal cyclist",179,430
+"2014","ACT","Pedestrian",20,111
+"2014","NSW","Driver",5319,20508
+"2014","NSW","Driver/passenger",145,664
+"2014","NSW","Motorcyclist",2636,11079
+"2014","NSW","Other/unknown",311,1505
+"2014","NSW","Pedal cyclist",1902,4999
+"2014","NSW","Pedestrian",1000,7285
+"2014","NT","Driver",276,1331
+"2014","NT","Driver/passenger",5,51
+"2014","NT","Motorcyclist",150,898
+"2014","NT","Other/unknown",7,43
+"2014","NT","Pedal cyclist",65,170
+"2014","NT","Pedestrian",59,418
+"2014","Qld","Driver",3580,12875
+"2014","Qld","Driver/passenger",146,882
+"2014","Qld","Motorcyclist",2070,8517
+"2014","Qld","Other/unknown",224,868
+"2014","Qld","Pedal cyclist",1333,3497
+"2014","Qld","Pedestrian",372,2377
+"2014","SA","Driver",1066,5217
+"2014","SA","Driver/passenger",35,112
+"2014","SA","Motorcyclist",557,2370
+"2014","SA","Other/unknown",50,150
+"2014","SA","Pedal cyclist",494,1508
+"2014","SA","Pedestrian",162,1721
+"2014","Tas","Driver",261,1381
+"2014","Tas","Driver/passenger",0,0
+"2014","Tas","Motorcyclist",204,787
+"2014","Tas","Other/unknown",9,20
+"2014","Tas","Pedal cyclist",111,357
+"2014","Tas","Pedestrian",45,284
+"2014","Vic","Driver",4070,13176
+"2014","Vic","Driver/passenger",107,609
+"2014","Vic","Motorcyclist",1654,6257
+"2014","Vic","Other/unknown",230,1006
+"2014","Vic","Pedal cyclist",1819,4236
+"2014","Vic","Pedestrian",643,3741
+"2014","WA","Driver",1282,7032
+"2014","WA","Driver/passenger",35,209
+"2014","WA","Motorcyclist",865,5326
+"2014","WA","Other/unknown",117,414
+"2014","WA","Pedal cyclist",657,2026
+"2014","WA","Pedestrian",198,1582
+"2015","ACT","Driver",275,1163
+"2015","ACT","Driver/passenger",6,6
+"2015","ACT","Motorcyclist",145,703
+"2015","ACT","Other/unknown",12,51
+"2015","ACT","Pedal cyclist",222,665
+"2015","ACT","Pedestrian",27,260
+"2015","NSW","Driver",5428,25378
+"2015","NSW","Driver/passenger",163,1139
+"2015","NSW","Motorcyclist",2459,13849
+"2015","NSW","Other/unknown",290,1691
+"2015","NSW","Pedal cyclist",1793,4896
+"2015","NSW","Pedestrian",951,7378
+"2015","NT","Driver",335,1607
+"2015","NT","Driver/passenger",0,0
+"2015","NT","Motorcyclist",169,764
+"2015","NT","Other/unknown",19,72
+"2015","NT","Pedal cyclist",81,213
+"2015","NT","Pedestrian",71,702
+"2015","Qld","Driver",4013,15668
+"2015","Qld","Driver/passenger",141,828
+"2015","Qld","Motorcyclist",2144,10155
+"2015","Qld","Other/unknown",203,1134
+"2015","Qld","Pedal cyclist",1378,3660
+"2015","Qld","Pedestrian",427,2825
+"2015","SA","Driver",1193,5571
+"2015","SA","Driver/passenger",17,40
+"2015","SA","Motorcyclist",549,3009
+"2015","SA","Other/unknown",50,227
+"2015","SA","Pedal cyclist",517,1342
+"2015","SA","Pedestrian",121,922
+"2015","Tas","Driver",325,1674
+"2015","Tas","Driver/passenger",8,33
+"2015","Tas","Motorcyclist",197,809
+"2015","Tas","Other/unknown",9,65
+"2015","Tas","Pedal cyclist",93,344
+"2015","Tas","Pedestrian",35,450
+"2015","Vic","Driver",4558,25027
+"2015","Vic","Driver/passenger",107,504
+"2015","Vic","Motorcyclist",1694,9946
+"2015","Vic","Other/unknown",245,1429
+"2015","Vic","Pedal cyclist",1894,5517
+"2015","Vic","Pedestrian",700,7649
+"2015","WA","Driver",1372,8942
+"2015","WA","Driver/passenger",33,261
+"2015","WA","Motorcyclist",842,5135
+"2015","WA","Other/unknown",91,354
+"2015","WA","Pedal cyclist",621,1963
+"2015","WA","Pedestrian",204,1714
+"2016","ACT","Driver",250,1163
+"2016","ACT","Driver/passenger",0,0
+"2016","ACT","Motorcyclist",147,627
+"2016","ACT","Other/unknown",5,5
+"2016","ACT","Pedal cyclist",215,513
+"2016","ACT","Pedestrian",28,277
+"2016","NSW","Driver",5639,25633
+"2016","NSW","Driver/passenger",133,1016
+"2016","NSW","Motorcyclist",2648,16375
+"2016","NSW","Other/unknown",315,1599
+"2016","NSW","Pedal cyclist",1775,5258
+"2016","NSW","Pedestrian",964,10468
+"2016","NT","Driver",374,1821
+"2016","NT","Driver/passenger",5,11
+"2016","NT","Motorcyclist",151,720
+"2016","NT","Other/unknown",23,184
+"2016","NT","Pedal cyclist",70,171
+"2016","NT","Pedestrian",59,743
+"2016","Qld","Driver",4260,17819
+"2016","Qld","Driver/passenger",142,852
+"2016","Qld","Motorcyclist",2159,12016
+"2016","Qld","Other/unknown",244,1791
+"2016","Qld","Pedal cyclist",1442,3920
+"2016","Qld","Pedestrian",455,3419
+"2016","SA","Driver",1292,6641
+"2016","SA","Driver/passenger",39,254
+"2016","SA","Motorcyclist",546,2902
+"2016","SA","Other/unknown",82,324
+"2016","SA","Pedal cyclist",527,1417
+"2016","SA","Pedestrian",168,1657
+"2016","Tas","Driver",310,2040
+"2016","Tas","Driver/passenger",8,70
+"2016","Tas","Motorcyclist",171,1096
+"2016","Tas","Other/unknown",20,314
+"2016","Tas","Pedal cyclist",96,176
+"2016","Tas","Pedestrian",41,213
+"2016","Vic","Driver",5324,33708
+"2016","Vic","Driver/passenger",110,1113
+"2016","Vic","Motorcyclist",1806,12516
+"2016","Vic","Other/unknown",312,2714
+"2016","Vic","Pedal cyclist",2008,6608
+"2016","Vic","Pedestrian",800,11119
+"2016","WA","Driver",1252,10058
+"2016","WA","Driver/passenger",34,444
+"2016","WA","Motorcyclist",802,6338
+"2016","WA","Other/unknown",125,786
+"2016","WA","Pedal cyclist",652,2264
+"2016","WA","Pedestrian",166,2012
+"2017","ACT","Driver",250,1199
+"2017","ACT","Driver/passenger",0,0
+"2017","ACT","Motorcyclist",119,454
+"2017","ACT","Other/unknown",0,0
+"2017","ACT","Pedal cyclist",211,609
+"2017","ACT","Pedestrian",34,291
+"2017","NSW","Driver",5295,23955
+"2017","NSW","Driver/passenger",147,770
+"2017","NSW","Motorcyclist",2526,16369
+"2017","NSW","Other/unknown",328,2131
+"2017","NSW","Pedal cyclist",1791,6632
+"2017","NSW","Pedestrian",929,9657
+"2017","NT","Driver",366,2091
+"2017","NT","Driver/passenger",7,44
+"2017","NT","Motorcyclist",149,881
+"2017","NT","Other/unknown",9,60
+"2017","NT","Pedal cyclist",74,196
+"2017","NT","Pedestrian",79,634
+"2017","Qld","Driver",4559,18461
+"2017","Qld","Driver/passenger",170,1082
+"2017","Qld","Motorcyclist",2208,11175
+"2017","Qld","Other/unknown",216,1251
+"2017","Qld","Pedal cyclist",1542,4061
+"2017","Qld","Pedestrian",439,3834
+"2017","SA","Driver",1151,6903
+"2017","SA","Driver/passenger",31,102
+"2017","SA","Motorcyclist",531,3244
+"2017","SA","Other/unknown",85,674
+"2017","SA","Pedal cyclist",469,1305
+"2017","SA","Pedestrian",127,1551
+"2017","Tas","Driver",310,1854
+"2017","Tas","Driver/passenger",5,53
+"2017","Tas","Motorcyclist",169,1044
+"2017","Tas","Other/unknown",8,65
+"2017","Tas","Pedal cyclist",107,626
+"2017","Tas","Pedestrian",34,313
+"2017","Vic","Driver",5528,28924
+"2017","Vic","Driver/passenger",126,764
+"2017","Vic","Motorcyclist",1979,13406
+"2017","Vic","Other/unknown",286,2068
+"2017","Vic","Pedal cyclist",2089,6055
+"2017","Vic","Pedestrian",786,12837
+"2017","WA","Driver",1277,9231
+"2017","WA","Driver/passenger",29,172
+"2017","WA","Motorcyclist",931,5439
+"2017","WA","Other/unknown",127,696
+"2017","WA","Pedal cyclist",637,1746
+"2017","WA","Pedestrian",194,1876
+"2018","ACT","Driver",287,1210
+"2018","ACT","Driver/passenger",0,0
+"2018","ACT","Motorcyclist",161,1023
+"2018","ACT","Other/unknown",9,41
+"2018","ACT","Pedal cyclist",217,399
+"2018","ACT","Pedestrian",24,228
+"2018","NSW","Driver",4469,26020
+"2018","NSW","Driver/passenger",151,1476
+"2018","NSW","Motorcyclist",2347,14941
+"2018","NSW","Other/unknown",323,2006
+"2018","NSW","Pedal cyclist",1681,5765
+"2018","NSW","Pedestrian",823,9316
+"2018","NT","Driver",488,3073
+"2018","NT","Driver/passenger",0,0
+"2018","NT","Motorcyclist",169,1028
+"2018","NT","Other/unknown",14,198
+"2018","NT","Pedal cyclist",71,244
+"2018","NT","Pedestrian",73,584
+"2018","Qld","Driver",4823,18616
+"2018","Qld","Driver/passenger",163,937
+"2018","Qld","Motorcyclist",2320,10780
+"2018","Qld","Other/unknown",237,1353
+"2018","Qld","Pedal cyclist",1408,4045
+"2018","Qld","Pedestrian",430,3108
+"2018","SA","Driver",1190,5760
+"2018","SA","Driver/passenger",20,195
+"2018","SA","Motorcyclist",559,3160
+"2018","SA","Other/unknown",68,492
+"2018","SA","Pedal cyclist",496,1716
+"2018","SA","Pedestrian",148,1288
+"2018","Tas","Driver",404,2258
+"2018","Tas","Driver/passenger",8,82
+"2018","Tas","Motorcyclist",171,936
+"2018","Tas","Other/unknown",20,177
+"2018","Tas","Pedal cyclist",109,340
+"2018","Tas","Pedestrian",59,765
+"2018","Vic","Driver",6099,31404
+"2018","Vic","Driver/passenger",143,633
+"2018","Vic","Motorcyclist",1944,14361
+"2018","Vic","Other/unknown",293,2459
+"2018","Vic","Pedal cyclist",2144,6179
+"2018","Vic","Pedestrian",830,8808
+"2018","WA","Driver",1485,6987
+"2018","WA","Driver/passenger",46,157
+"2018","WA","Motorcyclist",788,4155
+"2018","WA","Other/unknown",101,515
+"2018","WA","Pedal cyclist",665,1678
+"2018","WA","Pedestrian",189,1588
+"2019","ACT","Driver",279,1077
+"2019","ACT","Driver/passenger",0,0
+"2019","ACT","Motorcyclist",136,908
+"2019","ACT","Other/unknown",0,0
+"2019","ACT","Pedal cyclist",218,664
+"2019","ACT","Pedestrian",22,114
+"2019","NSW","Driver",4397,26054
+"2019","NSW","Driver/passenger",127,1080
+"2019","NSW","Motorcyclist",2565,16854
+"2019","NSW","Other/unknown",317,2610
+"2019","NSW","Pedal cyclist",1678,5724
+"2019","NSW","Pedestrian",858,10676
+"2019","NT","Driver",347,1866
+"2019","NT","Driver/passenger",0,0
+"2019","NT","Motorcyclist",153,780
+"2019","NT","Other/unknown",24,270
+"2019","NT","Pedal cyclist",84,420
+"2019","NT","Pedestrian",38,409
+"2019","Qld","Driver",4829,17647
+"2019","Qld","Driver/passenger",165,841
+"2019","Qld","Motorcyclist",2322,12608
+"2019","Qld","Other/unknown",224,1133
+"2019","Qld","Pedal cyclist",1531,4242
+"2019","Qld","Pedestrian",444,3718
+"2019","SA","Driver",1075,5062
+"2019","SA","Driver/passenger",44,82
+"2019","SA","Motorcyclist",562,2306
+"2019","SA","Other/unknown",46,334
+"2019","SA","Pedal cyclist",526,1563
+"2019","SA","Pedestrian",167,1342
+"2019","Tas","Driver",344,1756
+"2019","Tas","Driver/passenger",9,149
+"2019","Tas","Motorcyclist",148,1026
+"2019","Tas","Other/unknown",11,105
+"2019","Tas","Pedal cyclist",121,252
+"2019","Tas","Pedestrian",53,508
+"2019","Vic","Driver",5996,28974
+"2019","Vic","Driver/passenger",122,900
+"2019","Vic","Motorcyclist",1939,13405
+"2019","Vic","Other/unknown",305,1573
+"2019","Vic","Pedal cyclist",2215,7341
+"2019","Vic","Pedestrian",815,8816
+"2019","WA","Driver",1540,7575
+"2019","WA","Driver/passenger",40,340
+"2019","WA","Motorcyclist",886,5169
+"2019","WA","Other/unknown",106,528
+"2019","WA","Pedal cyclist",735,2243
+"2019","WA","Pedestrian",227,1967
+"2020","ACT","Driver",230,1251
+"2020","ACT","Driver/passenger",0,0
+"2020","ACT","Motorcyclist",142,554
+"2020","ACT","Other/unknown",12,115
+"2020","ACT","Pedal cyclist",223,512
+"2020","ACT","Pedestrian",14,68
+"2020","NSW","Driver",3924,23971
+"2020","NSW","Driver/passenger",125,780
+"2020","NSW","Motorcyclist",2335,15262
+"2020","NSW","Other/unknown",280,2277
+"2020","NSW","Pedal cyclist",1950,7366
+"2020","NSW","Pedestrian",660,8715
+"2020","NT","Driver",385,1815
+"2020","NT","Driver/passenger",6,19
+"2020","NT","Motorcyclist",195,647
+"2020","NT","Other/unknown",23,110
+"2020","NT","Pedal cyclist",108,265
+"2020","NT","Pedestrian",56,530
+"2020","Qld","Driver",4836,16554
+"2020","Qld","Driver/passenger",171,1029
+"2020","Qld","Motorcyclist",2447,11306
+"2020","Qld","Other/unknown",249,1219
+"2020","Qld","Pedal cyclist",1684,4710
+"2020","Qld","Pedestrian",414,3032
+"2020","SA","Driver",1089,5935
+"2020","SA","Driver/passenger",29,139
+"2020","SA","Motorcyclist",583,2964
+"2020","SA","Other/unknown",78,249
+"2020","SA","Pedal cyclist",593,1763
+"2020","SA","Pedestrian",131,1130
+"2020","Tas","Driver",378,1939
+"2020","Tas","Driver/passenger",0,0
+"2020","Tas","Motorcyclist",192,717
+"2020","Tas","Other/unknown",19,60
+"2020","Tas","Pedal cyclist",133,335
+"2020","Tas","Pedestrian",36,286
+"2020","Vic","Driver",4661,23007
+"2020","Vic","Driver/passenger",103,824
+"2020","Vic","Motorcyclist",1682,9858
+"2020","Vic","Other/unknown",235,1365
+"2020","Vic","Pedal cyclist",2645,6669
+"2020","Vic","Pedestrian",558,6214
+"2020","WA","Driver",1498,8650
+"2020","WA","Driver/passenger",44,191
+"2020","WA","Motorcyclist",949,5912
+"2020","WA","Other/unknown",128,444
+"2020","WA","Pedal cyclist",834,2464
+"2020","WA","Pedestrian",183,1127
+"2021","ACT","Driver",234,1037
+"2021","ACT","Motorcyclist",144,541
+"2021","ACT","Other/unknown",0,0
+"2021","ACT","Pedal cyclist",333,964
+"2021","ACT","Pedestrian",22,190
+"2021","NSW","Driver",3669,23489
+"2021","NSW","Driver/passenger",103,690
+"2021","NSW","Motorcyclist",2253,13985
+"2021","NSW","Other/unknown",287,2103
+"2021","NSW","Pedal cyclist",2042,7091
+"2021","NSW","Pedestrian",649,7740
+"2021","NT","Driver",362,2518
+"2021","NT","Driver/passenger",0,0
+"2021","NT","Motorcyclist",157,640
+"2021","NT","Other/unknown",22,149
+"2021","NT","Pedal cyclist",92,215
+"2021","NT","Pedestrian",58,383
+"2021","Qld","Driver",5471,18802
+"2021","Qld","Driver/passenger",144,634
+"2021","Qld","Motorcyclist",2598,12076
+"2021","Qld","Other/unknown",282,1410
+"2021","Qld","Pedal cyclist",1504,4776
+"2021","Qld","Pedestrian",448,3191
+"2021","SA","Driver",1231,5579
+"2021","SA","Driver/passenger",26,85
+"2021","SA","Motorcyclist",556,2594
+"2021","SA","Other/unknown",70,271
+"2021","SA","Pedal cyclist",577,1813
+"2021","SA","Pedestrian",172,1510
+"2021","Tas","Driver",399,2749
+"2021","Tas","Driver/passenger",0,0
+"2021","Tas","Motorcyclist",198,1116
+"2021","Tas","Other/unknown",21,58
+"2021","Tas","Pedal cyclist",118,687
+"2021","Tas","Pedestrian",46,202
+"2021","Vic","Driver",5402,24726
+"2021","Vic","Driver/passenger",136,1206
+"2021","Vic","Motorcyclist",1967,11727
+"2021","Vic","Other/unknown",248,1837
+"2021","Vic","Pedal cyclist",2695,7881
+"2021","Vic","Pedestrian",682,7322
+"2021","WA","Driver",1579,9940
+"2021","WA","Driver/passenger",47,163
+"2021","WA","Motorcyclist",882,6581
+"2021","WA","Other/unknown",136,777
+"2021","WA","Pedal cyclist",704,3024
+"2021","WA","Pedestrian",220,1803

@@ -1,0 +1,321 @@
+body {
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+    background: #eef2f5;
+    color: #111827;
+}
+
+header {
+    height: 52px;
+    padding: 7px 12px 4px;
+    box-sizing: border-box;
+}
+
+header h1 {
+    margin: 0 0 2px;
+    font-size: 18px;
+}
+
+header p {
+    margin: 0;
+    font-size: 12px;
+}
+
+/* Main 3-box layout */
+.dashboard {
+    height: calc(100vh - 52px);
+    display: grid;
+    grid-template-columns: minmax(280px, 28%) minmax(380px, 42%) minmax(280px, 30%);
+    gap: 10px;
+    padding: 0 10px 10px;
+    box-sizing: border-box;
+}
+
+.bar-panel,
+.map-panel,
+.chart-box {
+    height: 100%;
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border: 1px solid #cfd6de;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.bar-panel {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bar-panel h2,
+.map-panel h2,
+.chart-box h3,
+.details-panel h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+#roadUserBarChart {
+    flex: 0 0 auto;
+    height: auto;
+    aspect-ratio: 520 / 430;
+    width: min(100%, 430px);
+    align-self: center;
+    min-height: 0;
+}
+
+#roadUserBarChart svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.chart-insight {
+    min-height: 36px;
+    margin: 8px 0 0;
+    padding: 8px 10px;
+    box-sizing: border-box;
+    background: #f7f9fb;
+    border: 1px solid #d4d9df;
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.25;
+}
+
+#map {
+    height: calc(100% - 32px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Right side boxes */
+.right-panel {
+    height: 100%;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) 155px;
+    gap: 10px;
+    overflow: hidden;
+}
+
+/* Each white chart box */
+.chart-box {
+    min-height: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Chart area inside white boxes */
+#agePieChart {
+    width: 100%;
+    height: calc(100% - 64px);
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 6px;
+}
+
+#agePieChart svg {
+    width: min(100%, 360px);
+    height: min(70%, 260px);
+    flex: 0 0 auto;
+}
+
+#map svg {
+    width: min(96%, 520px);
+    height: min(88%, 440px);
+}
+
+.radar-grid {
+    fill: none;
+    stroke: #d7dee6;
+    stroke-width: 1;
+}
+
+.radar-axis {
+    stroke: #b7c1cc;
+    stroke-width: 1;
+}
+
+.radar-axis-label {
+    fill: #1f2937;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.radar-shape {
+    fill: rgba(78, 121, 167, 0.28);
+    stroke: #4E79A7;
+    stroke-width: 3;
+}
+
+.radar-point {
+    fill: #4E79A7;
+    stroke: #ffffff;
+    stroke-width: 1.5;
+    cursor: pointer;
+}
+
+.radar-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.reset-radar-button {
+    flex: 1;
+    min-height: 28px;
+    border: 1px solid #c5ced8;
+    border-radius: 6px;
+    background: #f7f9fb;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.reset-radar-button:hover,
+.reset-radar-button.active {
+    background: #edf2f7;
+}
+
+.age-legend {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px 12px;
+    width: min(100%, 260px);
+    margin: 0 auto;
+    font-size: 10px;
+    text-align: left;
+}
+
+/* Click detail box */
+.click-info {
+    margin-top: 2px;
+    padding: 5px 8px;
+    background: #f4f6f8;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: left;
+}
+
+/* State details panel */
+.details-panel {
+    height: 100%;
+    padding: 10px;
+    background: white;
+    border: 1px solid #cfd6de;
+    border-radius: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.summary-grid div {
+    padding: 8px;
+    background: #f7f9fb;
+    border: 1px solid #dde3ea;
+    border-radius: 6px;
+}
+
+.summary-grid span {
+    display: block;
+    margin-bottom: 3px;
+    font-size: 12px;
+    color: #607080;
+}
+
+.summary-grid strong {
+    display: block;
+    font-size: 16px;
+    color: #111827;
+}
+
+/* Tooltips */
+#ageTooltip,
+#roadUserBarTooltip {
+    position: absolute;
+    opacity: 0;
+    background: white;
+    border: 1px solid #999;
+    padding: 8px;
+    border-radius: 5px;
+    pointer-events: none;
+    font-size: 13px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 20;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+}
+
+.legend-item span {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    flex-shrink: 0;
+}
+
+@media (max-width: 920px) {
+    header {
+        height: 50px;
+    }
+
+    header h1 {
+        font-size: 17px;
+    }
+
+    header p {
+        font-size: 11px;
+    }
+
+    .dashboard {
+        height: calc(100vh - 50px);
+        grid-template-columns: 28% 42% 30%;
+        gap: 6px;
+        padding: 0 6px 6px;
+    }
+
+    .bar-panel,
+    .chart-box {
+        padding: 5px;
+    }
+
+    .bar-panel h2,
+    .map-panel h2,
+    .chart-box h3,
+    .details-panel h3 {
+        font-size: 12px;
+    }
+
+    .chart-insight {
+        font-size: 10px;
+        min-height: 30px;
+    }
+
+    .radar-axis-label,
+    .reset-radar-button {
+        font-size: 10px;
+    }
+}

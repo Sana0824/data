@@ -3,25 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance dashboard</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>Hospitalised Road Crash Injuries Dashboard</title>
+
+    <!-- Map CSS -->
+    <link rel="stylesheet" href="map/main.css">
+
+    <!-- Dashboard / chart CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div id="dashboard">
-        <div>
+
+    <header>
+        <h1>Hospitalised Road Crash Injuries in Australia</h1>
+        <p>Click a state on the map to update all charts.</p>
+    </header>
+
+    <main class="dashboard">
+
+        <!-- Left age severity radar chart section -->
+        <section class="bar-panel">
+            <h2 id="roadUserBarTitle">Age Severity Pattern - Australia</h2>
+            <div id="roadUserBarChart"></div>
+            <div class="radar-actions">
+                <button id="resetSeverityRadar" class="reset-radar-button" type="button">Reset to Australia</button>
+            </div>
+        </section>
+
+        <!-- Centre map section -->
+        <section class="map-panel">
+            <h2>Australia Map</h2>
             <div id="map"></div>
-            <div id="tooltip"></div>
-        </div>
+        </section>
 
-        <div id="details">
-            Click a state to view details.
-        </div>
-    </div>
+        <!-- Right donut chart section -->
+        <section class="right-panel">
 
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <button id="backButton" style="display:none;">Back to Australia Map</button>
-    <div id="map"></div>
+            <div class="chart-box">
+                <h3 id="agePieTitle">Age Group - National</h3>
+                <div id="agePieChart"></div>
+                <p id="ageInsight" class="chart-insight">Click an age group to see an insight.</p>
+            </div>
+
+            <section id="details" class="details-panel">
+                <h3>Selected State</h3>
+                <div class="summary-grid">
+                    <div>
+                        <span>State</span>
+                        <strong>National</strong>
+                    </div>
+                    <div>
+                        <span>Total cases</span>
+                        <strong>-</strong>
+                    </div>
+                    <div>
+                        <span>Total bed days</span>
+                        <strong>-</strong>
+                    </div>
+                    <div>
+                        <span>Highest year</span>
+                        <strong>-</strong>
+                    </div>
+                </div>
+            </section>
+
+        </section>
+
+    </main>
+
+    <!-- Tooltip used by map.js -->
     <div id="tooltip"></div>
-    <script src="js/map.js"></script>
+
+    <div id="roadUserBarTooltip"></div>
+
+    <!-- Tooltip used by ageChart.js -->
+    <div id="ageTooltip"></div>
+
+    <!-- D3 library -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Donut chart JS files must load before map.js -->
+    <script src="js/ageChart.js"></script>
+    <script src="js/severityRadarChart.js"></script>
+
+    <!-- Map JS -->
+    <script src="map/map.js"></script>
+
 </body>
 </html>
