@@ -45,6 +45,27 @@ header p {
     box-sizing: border-box;
 }
 
+.map-panel {
+    position: relative;
+}
+
+.map-back-button {
+    display: none;
+    margin: 0 auto 6px;
+    min-height: 28px;
+    border: 1px solid #c5ced8;
+    border-radius: 6px;
+    background: #f7f9fb;
+    color: #111827;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.map-back-button:hover {
+    background: #edf2f7;
+}
+
 .bar-panel {
     padding: 10px;
     display: flex;
@@ -94,6 +115,10 @@ header p {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.map-panel:has(.map-back-button[style*="block"]) #map {
+    height: calc(100% - 66px);
 }
 
 /* Right side boxes */
@@ -248,9 +273,32 @@ header p {
     color: #111827;
 }
 
+.stat-card {
+    margin-bottom: 8px;
+    padding: 8px;
+    background: #f7f9fb;
+    border: 1px solid #dde3ea;
+    border-left: 5px solid #111827;
+    border-radius: 6px;
+}
+
+.stat-card h3 {
+    margin: 0 0 4px;
+    font-size: 12px;
+    color: #607080;
+}
+
+.stat-card p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111827;
+}
+
 /* Tooltips */
 #ageTooltip,
-#roadUserBarTooltip {
+#roadUserBarTooltip,
+#tooltip {
     position: absolute;
     opacity: 0;
     background: white;

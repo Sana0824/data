@@ -137,6 +137,17 @@ function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, co
         })
         .on("click", function(event, d) {
             const stateName = d.properties.STATE_NAME;
+            selectedState = stateName;
+            selectedRoadUser = null;
+            selectedAgeGroup = null;
+
+            if (typeof updateAgePieChart === "function") {
+                updateAgePieChart(stateName);
+            }
+
+            if (typeof updateSeverityRadarChart === "function") {
+                updateSeverityRadarChart(stateName, null);
+            }
 
             showDetails(
                 stateName,
@@ -155,7 +166,7 @@ function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, co
 function drawStateMap(stateName) {
 
     d3.select("#map").html("");
-    d3.select("#backButton").style("display", "inline-block");
+    d3.select("#backButton").style("display", "block");
 
     let fileName = "";
 
