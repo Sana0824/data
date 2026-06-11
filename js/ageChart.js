@@ -4,8 +4,105 @@ let ageStateData = [];
 let ageDefaultData = [];
 let selectedAgeGroup = null;
 let selectedState = "National";
+let selectedYear = "Average";
 let selectedRoadUser = null;
 let ageRoadUserData = [];
+const yearTimelineRange = ["Average"].concat(d3.range(2011, 2022));
+
+function isAverageYear(year) {
+    return year === "Average";
+}
+
+function getSelectedYearLabel() {
+    return isAverageYear(selectedYear) ? "Average 2011-2021" : selectedYear;
+}
+
+function getAgeDataForSelectedYear(data) {
+    if (!isAverageYear(selectedYear)) {
+        return data.filter(function(d) {
+            return d.year === selectedYear;
+        });
+    }
+
+    const yearCount = d3.union(data.map(function(d) {
+        return d.year;
+    })).size || 1;
+
+    return Array.from(
+        d3.rollup(
+            data,
+            function(rows) {
+                return d3.sum(rows, function(d) {
+                    return d.value;
+                }) / yearCount;
+            },
+            function(d) {
+                return d.age_group;
+            }
+        ),
+        function([ageGroup, value]) {
+            return {
+                age_group: ageGroup,
+                value: value
+            };
+        }
+    );
+}
+
+function createYearTimeline() {
+    const timeline = d3.select("#yearTimeline");
+
+    if (timeline.empty()) {
+        return;
+    }
+
+    d3.select("#selectedYearLabel").text(selectedYear);
+
+    const yearItems = timeline.selectAll("button")
+        .data(yearTimelineRange, function(d) {
+            return d;
+        });
+
+    yearItems.enter()
+        .append("button")
+        .attr("class", "year-tick")
+        .attr("type", "button")
+        .classed("average-year", function(d) {
+            return isAverageYear(d);
+        })
+        .text(function(d) {
+            return d;
+        })
+        .merge(yearItems)
+        .classed("active", function(d) {
+            return d === selectedYear;
+        })
+        .attr("aria-pressed", function(d) {
+            return d === selectedYear ? "true" : "false";
+        })
+        .on("click", function(event, year) {
+            selectedYear = year;
+            selectedAgeGroup = null;
+            d3.select("#selectedYearLabel").text(selectedYear);
+            timeline.selectAll("button")
+                .classed("active", function(d) {
+                    return d === selectedYear;
+                })
+                .attr("aria-pressed", function(d) {
+                    return d === selectedYear ? "true" : "false";
+                });
+
+            updateAgeDonutChart(selectedState, selectedYear);
+            if (typeof updateSeverityRadarChart === "function") {
+                updateSeverityRadarChart(selectedState, selectedYear, null);
+            }
+            if (typeof updateMapForSelectedYear === "function") {
+                updateMapForSelectedYear();
+            }
+        });
+
+    yearItems.exit().remove();
+}
 
 function getAgeShareText(value, total) {
     if (total === 0) {
@@ -51,6 +148,7 @@ d3.select("body").on("click.ageReset", function(event) {
 d3.csv("data/default.csv").then(function(data) {
 
     data.forEach(function(d) {
+        d.year = +d.year;
         d.value = +d["Sum(cases)"];
     });
 
@@ -62,18 +160,21 @@ d3.csv("data/default.csv").then(function(data) {
         .map(function(d) {
             return {
                 state: "National",
+                year: d.year,
                 road_user: cleanAgeRoadUserName(d.road_user),
                 age_group: d.age_group,
                 value: d.value
             };
         });
-    drawAgeDonutChart(data, "National");
+    createYearTimeline();
+    updateAgeDonutChart("National", selectedYear);
 });
 
 // Load state age data
 d3.csv("data/agegroup_state.csv").then(function(data) {
 
     data.forEach(function(d) {
+        d.year = +d.year;
         d.value = +d["Sum(cases)"];
     });
 
@@ -83,19 +184,22 @@ d3.csv("data/agegroup_state.csv").then(function(data) {
 });
 
 // This function will be called from map.js
-function updateAgeDonutChart(stateName) {
+function updateAgeDonutChart(stateName, year) {
 
     selectedState = stateName || "National";
+    selectedYear = year || selectedYear;
     const shortStateName = convertStateName(stateName);
 
     if (shortStateName === "National") {
-        drawAgeDonutChart(ageDefaultData, "National");
+        const nationalYearData = getAgeDataForSelectedYear(ageDefaultData);
+        drawAgeDonutChart(nationalYearData, "National");
         return;
     }
 
-    const selectedData = ageStateData.filter(function(d) {
+    const stateRows = ageStateData.filter(function(d) {
         return d.state.trim() === shortStateName.trim();
     });
+    const selectedData = getAgeDataForSelectedYear(stateRows);
 
     console.log("Selected age data for " + stateName + ":", selectedData);
 
@@ -103,8 +207,8 @@ function updateAgeDonutChart(stateName) {
 }
 
 // This keeps old map.js function call working
-function updateAgePieChart(stateName) {
-    updateAgeDonutChart(stateName);
+function updateAgePieChart(stateName, year) {
+    updateAgeDonutChart(stateName, year);
 }
 
 function updateAgeChartByRoadUser(stateName, roadUserName) {
@@ -112,29 +216,32 @@ function updateAgeChartByRoadUser(stateName, roadUserName) {
     selectedRoadUser = roadUserName || null;
 
     if (!selectedRoadUser) {
-        updateAgeDonutChart(selectedState);
+        updateAgeDonutChart(selectedState, selectedYear);
         return;
     }
 
     if (ageRoadUserData.length === 0) {
-        updateAgeDonutChart(selectedState);
-        d3.select("#agePieTitle").text("Age Group Injury Cases - " + selectedState);
+        updateAgeDonutChart(selectedState, selectedYear);
+        d3.select("#agePieTitle").text("Age Group Injury Cases, " + getSelectedYearLabel() + " - " + selectedState);
         console.log("No dataset contains state, road_user, age_group, cases, and bed_days together. Showing normal age chart.");
         return;
     }
 
     const shortStateName = convertStateName(selectedState);
     const hasStateRoadUserAgeData = ageRoadUserData.some(function(d) {
-        return d.state === shortStateName && d.road_user === selectedRoadUser;
+        return d.state === shortStateName && d.road_user === selectedRoadUser && (isAverageYear(selectedYear) || d.year === selectedYear);
     });
 
     const selectedData = ageRoadUserData.filter(function(d) {
         if (hasStateRoadUserAgeData) {
-            return d.state === shortStateName && d.road_user === selectedRoadUser;
+            return d.state === shortStateName && d.road_user === selectedRoadUser && (isAverageYear(selectedYear) || d.year === selectedYear);
         }
 
-        return d.state === "National" && d.road_user === selectedRoadUser;
+        return d.state === "National" && d.road_user === selectedRoadUser && (isAverageYear(selectedYear) || d.year === selectedYear);
     });
+    const yearCount = isAverageYear(selectedYear) ? (d3.union(selectedData.map(function(d) {
+        return d.year;
+    })).size || 1) : 1;
 
     const groupedData = Array.from(
         d3.rollup(
@@ -142,7 +249,7 @@ function updateAgeChartByRoadUser(stateName, roadUserName) {
             function(v) {
                 return d3.sum(v, function(d) {
                     return d.value;
-                });
+                }) / yearCount;
             },
             function(d) {
                 return d.age_group;
@@ -166,7 +273,7 @@ function updateAgeChartByRoadUser(stateName, roadUserName) {
         return;
     }
 
-    updateAgeDonutChart(selectedState);
+    updateAgeDonutChart(selectedState, selectedYear);
     highlightAgeSlice(groupedData[0] ? groupedData[0].age_group : null, selectedRoadUser);
 }
 
@@ -250,7 +357,7 @@ function convertStateName(stateName) {
 function drawAgeDonutChart(data, titleText) {
 
     d3.select("#agePieChart").html("");
-    const title = titleText.indexOf("Age Groups for ") === 0 ? titleText : "Age Group Injury Cases - " + titleText;
+    const title = titleText.indexOf("Age Groups for ") === 0 ? titleText + ", " + getSelectedYearLabel() : "Age Group Injury Cases, " + getSelectedYearLabel() + " - " + titleText;
     d3.select("#agePieTitle").text(title);
     d3.select("#ageInsight").text("Click an age group to see an insight.");
     selectedAgeGroup = null;
@@ -303,6 +410,8 @@ function drawAgeDonutChart(data, titleText) {
     const width = 360;
     const height = 260;
     const radius = 104;
+    const donutInnerRadius = 68;
+    const donutEntryDuration = 1000;
 
     const svg = d3.select("#agePieChart")
         .append("svg")
@@ -320,11 +429,11 @@ function drawAgeDonutChart(data, titleText) {
         });
 
     const arc = d3.arc()
-        .innerRadius(68)
+        .innerRadius(donutInnerRadius)
         .outerRadius(radius);
 
     const hoverArc = d3.arc()
-        .innerRadius(68)
+        .innerRadius(donutInnerRadius)
         .outerRadius(radius + 8);
 
     const color = d3.scaleOrdinal(d3.schemeTableau10);
@@ -338,7 +447,13 @@ function drawAgeDonutChart(data, titleText) {
         .enter()
         .append("path")
         .attr("class", "age-slice")
-        .attr("d", arc)
+        .attr("d", function(d) {
+            return arc({
+                startAngle: d.startAngle,
+                endAngle: d.startAngle,
+                data: d.data
+            });
+        })
         .attr("fill", function(d) {
             return color(d.data.label);
         })
@@ -400,12 +515,34 @@ function drawAgeDonutChart(data, titleText) {
                 " of hospitalised road crash injuries in " + titleText + ".");
 
         if (typeof updateSeverityRadarChart === "function") {
-            updateSeverityRadarChart(selectedState, selectedAgeGroup);
+            updateSeverityRadarChart(selectedState, selectedYear, selectedAgeGroup);
         }
 
         showAgeTooltip(event, d.data, totalCases);
 
     });
+
+    chartGroup.selectAll(".age-slice")
+        .transition()
+        .duration(donutEntryDuration)
+        .ease(d3.easeCubicOut)
+        .attrTween("d", function(d) {
+            const endAngle = d.endAngle;
+            const angle = d3.interpolate(d.startAngle, endAngle);
+            const innerRadius = d3.interpolate(0, donutInnerRadius);
+            const outerRadius = d3.interpolate(0, radius);
+            const animatedArc = d3.arc();
+
+            return function(t) {
+                return animatedArc
+                    .innerRadius(innerRadius(t))
+                    .outerRadius(outerRadius(t))({
+                        startAngle: d.startAngle,
+                        endAngle: angle(t),
+                        data: d.data
+                    });
+            };
+        });
 
     chartGroup.append("text")
     .attr("text-anchor", "middle")
@@ -419,7 +556,7 @@ function drawAgeDonutChart(data, titleText) {
     .attr("y", 15)
     .style("font-size", "12px")
     .style("font-weight", "bold")
-    .text(d3.format(",")(totalCases));
+    .text(d3.format(",.0f")(totalCases));
 
     const legend = d3.select("#agePieChart")
         .append("div")

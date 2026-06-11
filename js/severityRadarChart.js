@@ -40,6 +40,7 @@ Promise.all([
 
             return {
                 region: "Australia",
+                year: +d.year,
                 ageGroup: d.age_group,
                 cases: cases,
                 bedDays: cases * meanBedDays
@@ -53,53 +54,59 @@ Promise.all([
         .map(function(d) {
             return {
                 region: d.state,
+                year: +d.year,
                 ageGroup: d.age_group,
                 cases: +d["Sum(cases)"],
                 bedDays: +d["Sum(bed_days)"]
             };
         });
 
-    updateSeverityRadarChart("Australia", null);
+    updateSeverityRadarChart("Australia", selectedYear, null);
 }).catch(function(error) {
     console.log("Error loading severity radar data");
     console.log(error);
 });
 
-function updateSeverityRadarChart(regionName, ageGroupName) {
+function updateSeverityRadarChart(regionName, year, ageGroupName) {
     const region = normaliseSeverityRegion(regionName);
     selectedRegion = region;
+    if (ageGroupName === undefined && typeof year === "string" && !isAverageYear(year)) {
+        ageGroupName = year;
+        year = selectedYear;
+    }
+    selectedYear = year || selectedYear;
     selectedAgeGroup = ageGroupName || null;
 
     if (!severityChartReady) {
         initialiseSeverityRadarChart();
     }
 
-    const rows = getSeverityRows(region);
+    const rows = getSeverityRows(region, selectedYear);
     const summary = getSeveritySummary(rows, selectedAgeGroup);
     const maxValues = getSeverityMaxValuesFromRowSets([rows]);
     const chartData = buildSeverityRadarData(summary, maxValues);
 
     d3.select("#roadUserBarTitle")
-        .text(selectedAgeGroup ? "Severity Pattern for " + selectedAgeGroup + " - " + region : "Severity Pattern - " + region);
+        .text(selectedAgeGroup ? "Severity Pattern for " + selectedAgeGroup + ", " + getSelectedYearLabel() + " - " + region : "Severity Pattern, " + getSelectedYearLabel() + " - " + region);
 
     drawSeverityRadar(chartData, summary.ageGroup, region);
 }
 
 // Compatibility for the existing map call.
 function updateRoadUserBubbleChart(stateName) {
-    updateSeverityRadarChart(stateName || "Australia", selectedAgeGroup);
+    updateSeverityRadarChart(stateName || "Australia", selectedYear, selectedAgeGroup);
 }
 
 function updateRoadUserBarChart(stateName) {
-    updateSeverityRadarChart(stateName || "Australia", selectedAgeGroup);
+    updateSeverityRadarChart(stateName || "Australia", selectedYear, selectedAgeGroup);
 }
 
 function updateRoadUserPieChart(stateName) {
-    updateSeverityRadarChart(stateName || "Australia", selectedAgeGroup);
+    updateSeverityRadarChart(stateName || "Australia", selectedYear, selectedAgeGroup);
 }
 
 function updateRoadUserDonutChart(stateName) {
-    updateSeverityRadarChart(stateName || "Australia", selectedAgeGroup);
+    updateSeverityRadarChart(stateName || "Australia", selectedYear, selectedAgeGroup);
 }
 
 function normaliseSeverityRegion(regionName) {
@@ -118,13 +125,25 @@ function normaliseSeverityRegion(regionName) {
     return stateMap[regionName] || regionName || "Australia";
 }
 
-function getSeverityRows(region) {
+function getSeverityRows(region, year) {
     if (region === "Australia") {
-        return severityNationalData;
+        if (isAverageYear(year)) {
+            return severityNationalData;
+        }
+
+        return severityNationalData.filter(function(d) {
+            return d.year === year;
+        });
+    }
+
+    if (isAverageYear(year)) {
+        return severityStateData.filter(function(d) {
+            return d.region === region;
+        });
     }
 
     return severityStateData.filter(function(d) {
-        return d.region === region;
+        return d.region === region && d.year === year;
     });
 }
 
@@ -139,10 +158,14 @@ function getSeveritySummary(rows, ageGroupName) {
     const bedDays = d3.sum(selectedRows, function(d) {
         return d.bedDays;
     });
+    const yearCount = isAverageYear(selectedYear) ? (d3.union(selectedRows.map(function(d) {
+        return d.year;
+    })).size || 1) : 1;
+
     return {
         ageGroup: ageGroupName || "All age groups",
-        cases: cases,
-        bedDays: bedDays,
+        cases: cases / yearCount,
+        bedDays: bedDays / yearCount,
         bedDaysPerCase: cases === 0 ? 0 : bedDays / cases
     };
 }
@@ -165,9 +188,13 @@ function getSeverityMaxValuesFromRowSets(rowSets) {
                     const bedDays = d3.sum(v, function(d) {
                         return d.bedDays;
                     });
+                    const yearCount = isAverageYear(selectedYear) ? (d3.union(v.map(function(d) {
+                        return d.year;
+                    })).size || 1) : 1;
+
                     return {
-                        cases: cases,
-                        bedDays: bedDays,
+                        cases: cases / yearCount,
+                        bedDays: bedDays / yearCount,
                         bedDaysPerCase: cases === 0 ? 0 : bedDays / cases
                     };
                 },
@@ -257,10 +284,10 @@ function initialiseSeverityRadarChart() {
         selectedRegion = "Australia";
 
         if (typeof updateAgeDonutChart === "function") {
-            updateAgeDonutChart("National");
+            updateAgeDonutChart("National", selectedYear);
         }
 
-        updateSeverityRadarChart("Australia", null);
+        updateSeverityRadarChart("Australia", selectedYear, null);
 
         d3.selectAll("#map path")
             .attr("stroke", "#666")
