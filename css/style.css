@@ -28,6 +28,7 @@ header p {
     height: calc(100vh - 52px);
     display: grid;
     grid-template-columns: minmax(280px, 28%) minmax(380px, 42%) minmax(280px, 30%);
+    grid-template-rows: minmax(0, calc(100% - 178px)) 168px;
     gap: 10px;
     padding: 0 10px 10px;
     box-sizing: border-box;
@@ -37,6 +38,7 @@ header p {
 .map-panel,
 .chart-box {
     height: 100%;
+    min-height: 0;
     min-width: 0;
     overflow: hidden;
     background: white;
@@ -75,6 +77,7 @@ header p {
 .bar-panel h2,
 .map-panel h2,
 .chart-box h3,
+.details-panel h2,
 .details-panel h3 {
     margin: 0 0 8px;
     font-size: 15px;
@@ -121,12 +124,11 @@ header p {
     height: calc(100% - 66px);
 }
 
-/* Right side boxes */
+/* Right side box */
 .right-panel {
     height: 100%;
-    display: grid;
-    grid-template-rows: minmax(0, 1fr) 155px;
-    gap: 10px;
+    min-height: 0;
+    min-width: 0;
     overflow: hidden;
 }
 
@@ -157,8 +159,8 @@ header p {
 }
 
 #map svg {
-    width: min(96%, 520px);
-    height: min(88%, 440px);
+    width: min(96%, 720px);
+    height: min(88%, 540px);
 }
 
 .radar-grid {
@@ -238,8 +240,10 @@ header p {
 
 /* State details panel */
 .details-panel {
+    grid-column: 1 / -1;
     height: 100%;
-    padding: 10px;
+    min-height: 0;
+    padding: 10px 16px;
     background: white;
     border: 1px solid #cfd6de;
     border-radius: 8px;
@@ -249,15 +253,17 @@ header p {
 
 .summary-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
 }
 
 .summary-grid div {
-    padding: 8px;
+    min-height: 54px;
+    padding: 8px 10px;
     background: #f7f9fb;
     border: 1px solid #dde3ea;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
 .summary-grid span {
@@ -274,7 +280,11 @@ header p {
 }
 
 .stat-card {
-    margin-bottom: 8px;
+    display: inline-block;
+    box-sizing: border-box;
+    width: calc((100% - 48px) / 7);
+    min-height: 72px;
+    margin: 0 4px 0 0;
     padding: 8px;
     background: #f7f9fb;
     border: 1px solid #dde3ea;
@@ -353,6 +363,7 @@ header p {
     .bar-panel h2,
     .map-panel h2,
     .chart-box h3,
+    .details-panel h2,
     .details-panel h3 {
         font-size: 12px;
     }

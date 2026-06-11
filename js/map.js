@@ -4,7 +4,9 @@ Promise.all([
     d3.csv("data/age_clean.csv"),
     d3.csv("data/road_user_clean.csv"),
     d3.csv("data/sex_clean.csv"),
-    d3.csv("data/counterparty_clean.csv")
+    d3.csv("data/counterparty_clean.csv"),
+    d3.csv("data/agegroup_state.csv"),
+    d3.csv("data/roaduser_state.csv")
 ]).then(function(files) {
 
     const geoData = files[0];
@@ -13,6 +15,15 @@ Promise.all([
     const roadUserData = files[3];
     const sexData = files[4];
     const counterpartyData = files[5];
+    const ageStateData = files[6];
+    const roadUserStateData = files[7];
+    const detailData = {
+        stateData: stateData,
+        ageData: ageData,
+        roadUserData: roadUserData,
+        sexData: sexData,
+        counterpartyData: counterpartyData
+    };
 
     stateData.forEach(function(d) {
         d.year = +d.year;
@@ -44,10 +55,22 @@ Promise.all([
         d.bed_days = +d["Sum(bed_days)"];
     });
 
-    drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData);
+    ageStateData.forEach(function(d) {
+        d.year = +d.year;
+        d.cases = +d["Sum(cases)"];
+        d.bed_days = +d["Sum(bed_days)"];
+    });
+
+    roadUserStateData.forEach(function(d) {
+        d.year = +d.year;
+        d.cases = +d["Sum(cases)"];
+        d.bed_days = +d["Sum(bed_days)"];
+    });
+
+    drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData, ageStateData, roadUserStateData, detailData);
 
     d3.select("#backButton").on("click", function() {
-        drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData);
+        drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData, ageStateData, roadUserStateData, detailData);
     });
 
 }).catch(function(error) {
@@ -56,10 +79,11 @@ Promise.all([
 });
 
 
-function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData) {
+function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, counterpartyData, ageStateData, roadUserStateData, detailData) {
 
     d3.select("#map").html("");
     d3.select("#backButton").style("display", "none");
+    resetDetailsPanel(detailData);
 
     const latestYear = 2016;
 
@@ -79,12 +103,12 @@ function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, co
     const svg = d3.select("#map")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMidYMid meet");
 
     const projection = d3.geoMercator()
-        .center([134, -28])
-        .scale(700)
-        .translate([width / 2, height / 2]);
+        .fitExtent([[20, 20], [width - 20, height - 20]], geoData);
 
     const path = d3.geoPath().projection(projection);
 
@@ -155,7 +179,9 @@ function drawAustraliaMap(geoData, stateData, ageData, roadUserData, sexData, co
                 ageData,
                 roadUserData,
                 sexData,
-                counterpartyData
+                counterpartyData,
+                ageStateData,
+                roadUserStateData
             );
 
             drawStateMap(stateName);
@@ -204,10 +230,12 @@ function drawStateMap(stateName) {
         const svg = d3.select("#map")
             .append("svg")
             .attr("width", width)
-            .attr("height", height);
+            .attr("height", height)
+            .attr("viewBox", "0 0 " + width + " " + height)
+            .attr("preserveAspectRatio", "xMidYMid meet");
 
         const projection = d3.geoMercator()
-            .fitSize([width, height], stateMap);
+            .fitExtent([[20, 20], [width - 20, height - 20]], stateMap);
 
         const path = d3.geoPath().projection(projection);
 
@@ -288,7 +316,7 @@ function drawStateMap(stateName) {
 }
 
 
-function showDetails(stateName, stateData, ageData, roadUserData, sexData, counterpartyData) {
+function showDetails(stateName, stateData, ageData, roadUserData, sexData, counterpartyData, ageStateData, roadUserStateData) {
 
     const rows = stateData.filter(function(d) {
         return d.state === stateName;
@@ -310,58 +338,128 @@ function showDetails(stateName, stateData, ageData, roadUserData, sexData, count
         }
     });
 
-    const topAge = ageData.sort(function(a, b) {
+    const stateCode = getStateCode(stateName);
+
+    const topAge = ageStateData.filter(function(d) {
+        return d.state === stateCode && d.age_group !== "Missing";
+    }).slice().sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    const topRoadUser = roadUserData.sort(function(a, b) {
+    const topRoadUser = roadUserStateData.filter(function(d) {
+        return d.state === stateCode;
+    }).slice().sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    const topSex = sexData.sort(function(a, b) {
+    const topSex = sexData.slice().sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
-    const topCounterparty = counterpartyData.sort(function(a, b) {
+    const topCounterparty = counterpartyData.slice().sort(function(a, b) {
         return b.cases - a.cases;
     })[0];
 
     d3.select("#details").html(
-        "<h2>" + stateName + "</h2>" +
+        "<h3>Selected State</h3>" +
+        "<div class='summary-grid'>" +
+        "<div><span>State</span><strong>" + stateName + "</strong></div>" +
+        "<div><span>Total cases</span><strong>" + totalCases + "</strong></div>" +
+        "<div><span>Total bed days</span><strong>" + totalBedDays + "</strong></div>" +
+        "<div><span>Highest year</span><strong>" + highestYear.year + "</strong></div>" +
+        "<div><span>Most affected age group</span><strong>" + (topAge ? topAge.age_group : "-") + "</strong></div>" +
+        "<div><span>Highest road user type</span><strong>" + (topRoadUser ? topRoadUser.road_user_group : "-") + "</strong></div>" +
+        "<div><span>Highest gender category</span><strong>" + (topSex ? topSex.sex : "-") + "</strong></div>" +
+        "<div><span>Main counterparty</span><strong>" + (topCounterparty ? topCounterparty.counterparty : "-") + "</strong></div>" +
+        "</div>"
+    );
+}
 
-        "<div class='stat-card'>" +
-        "<h3>Total Accident Cases</h3>" +
-        "<p>" + totalCases + "</p>" +
-        "</div>" +
+function getStateCode(stateName) {
+    if (typeof convertStateName === "function") {
+        return convertStateName(stateName);
+    }
 
-        "<div class='stat-card'>" +
-        "<h3>Total Hospital Bed Days</h3>" +
-        "<p>" + totalBedDays + "</p>" +
-        "</div>" +
+    const stateMap = {
+        "Australian Capital Territory": "ACT",
+        "New South Wales": "NSW",
+        "Northern Territory": "NT",
+        "Queensland": "Qld",
+        "South Australia": "SA",
+        "Tasmania": "Tas",
+        "Victoria": "Vic",
+        "Western Australia": "WA"
+    };
 
-        "<div class='stat-card'>" +
-        "<h3>Highest Accident Year</h3>" +
-        "<p>" + highestYear.year + "</p>" +
-        "</div>" +
+    return stateMap[stateName] || stateName;
+}
 
-        "<div class='stat-card'>" +
-        "<h3>Most Affected Age Group</h3>" +
-        "<p>" + topAge.age_group + "</p>" +
-        "</div>" +
+function resetDetailsPanel(detailData) {
+    if (!detailData) {
+        return;
+    }
 
-        "<div class='stat-card'>" +
-        "<h3>Highest Road User Type</h3>" +
-        "<p>" + topRoadUser.road_user + "</p>" +
-        "</div>" +
+    const totalCases = d3.sum(detailData.stateData, function(d) {
+        return d.cases;
+    });
 
-        "<div class='stat-card'>" +
-        "<h3>Highest Gender Category</h3>" +
-        "<p>" + topSex.sex + "</p>" +
-        "</div>" +
+    const totalBedDays = d3.sum(detailData.stateData, function(d) {
+        return d.bed_days;
+    });
 
-        "<div class='stat-card'>" +
-        "<h3>Main Counterparty</h3>" +
-        "<p>" + topCounterparty.counterparty + "</p>" +
+    const yearlyTotals = Array.from(
+        d3.rollup(
+            detailData.stateData,
+            function(rows) {
+                return d3.sum(rows, function(d) {
+                    return d.cases;
+                });
+            },
+            function(d) {
+                return d.year;
+            }
+        ),
+        function([year, cases]) {
+            return {
+                year: year,
+                cases: cases
+            };
+        }
+    );
+
+    const highestYear = yearlyTotals.sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
+
+    const topAge = detailData.ageData.filter(function(d) {
+        return d.age_group !== "Missing";
+    }).slice().sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
+
+    const topRoadUser = detailData.roadUserData.slice().sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
+
+    const topSex = detailData.sexData.slice().sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
+
+    const topCounterparty = detailData.counterpartyData.slice().sort(function(a, b) {
+        return b.cases - a.cases;
+    })[0];
+
+    d3.select("#details").html(
+        "<h3>Selected State</h3>" +
+        "<div class='summary-grid'>" +
+        "<div><span>State</span><strong>National</strong></div>" +
+        "<div><span>Total cases</span><strong>" + totalCases + "</strong></div>" +
+        "<div><span>Total bed days</span><strong>" + totalBedDays + "</strong></div>" +
+        "<div><span>Highest year</span><strong>" + (highestYear ? highestYear.year : "-") + "</strong></div>" +
+        "<div><span>Most affected age group</span><strong>" + (topAge ? topAge.age_group : "-") + "</strong></div>" +
+        "<div><span>Highest road user type</span><strong>" + (topRoadUser ? topRoadUser.road_user : "-") + "</strong></div>" +
+        "<div><span>Highest gender category</span><strong>" + (topSex ? topSex.sex : "-") + "</strong></div>" +
+        "<div><span>Main counterparty</span><strong>" + (topCounterparty ? topCounterparty.counterparty : "-") + "</strong></div>" +
         "</div>"
     );
 }
