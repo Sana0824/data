@@ -174,8 +174,7 @@ header p {
 .chart-box h3,
 .details-panel h2,
 .details-panel h3 {
-
-    margin: -10px -10px 10px -10px;
+    box-sizing: border-box;
     padding: 9px 10px;
 
     background: linear-gradient(90deg, #2563eb, #3b82f6);
@@ -185,8 +184,27 @@ header p {
 
     font-size: 15px;
     font-weight: 500;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     border-radius: 10px 10px 0 0;
+}
+
+.bar-panel h2,
+.chart-box h3 {
+    margin: -8px -8px 8px -8px;
+}
+
+.map-panel h2 {
+    margin: 0 0 8px 0;
+    border-radius: 8px 8px 0 0;
+}
+
+.details-panel h2,
+.details-panel h3 {
+    margin: -8px -14px 8px -14px;
 }
 
 #roadUserBarChart {
@@ -217,7 +235,7 @@ header p {
 }
 
 #map {
-    height: calc(100% - 30px);
+    height: calc(100% - 40px);
     overflow: hidden;
     display: flex;
     align-items: center;
